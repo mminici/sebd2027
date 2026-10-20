@@ -1,0 +1,32 @@
+---
+import PageBanner from "../components/PageBanner.astro";
+import { conference, navigationItem, venue } from "../data";
+import { Content as Intro } from "../content/program.md";
+import { eachDay, formatDay, formatPlace, formatRange } from "../lib/format";
+import { sitePath } from "../lib/paths";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const page = navigationItem("program");
+const when = formatRange(conference.dates.start, conference.dates.end);
+const place = `${venue.name}, ${formatPlace(venue.address)}`;
+const days = eachDay(conference.dates.start, conference.dates.end);
+---
+
+<BaseLayout title={page.label} description="The day-by-day schedule of the symposium." bleed>
+	<PageBanner title={page.label} kicker={when} note={place} />
+	<div class="page-column page-body page-flow">
+		<Intro />
+		<ol class="day-list">
+			{
+				days.map((day) => (
+					<li>
+						<p class="day-date">{formatDay(day)}</p>
+					</li>
+				))
+			}
+		</ol>
+		<p class="page-links">
+			<a class="btn btn-text state-layer" href={sitePath("keynotes")}>Keynotes</a>
+		</p>
+	</div>
+</BaseLayout>

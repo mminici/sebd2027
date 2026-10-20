@@ -1,16 +1,90 @@
 ---
+import { Image } from "astro:assets";
+import harbour from "../assets/otranto-harbour.jpg";
+import DeadlineList from "../components/DeadlineList.astro";
+import TesseraBand from "../components/TesseraBand.astro";
+import { conference, sponsors, venue } from "../data";
+import { Content as About } from "../content/about.md";
+import { frontmatter as otranto } from "../content/otranto.md";
+import { brandLabel, conferenceName, formatPlace, formatRange } from "../lib/format";
+import { sitePath } from "../lib/paths";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const name = conferenceName(conference.edition, conference.series);
+const brand = brandLabel(conference.shortName, conference.dates.start);
+const place = formatPlace(venue.address);
+const when = formatRange(conference.dates.start, conference.dates.end);
+const lead = `${name} meets in ${venue.address.city}, ${venue.address.region}, at ${venue.name}, from ${when}.`;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={name} description={conference.summary} home>
+	<section class="cover" aria-labelledby="hero-title">
+		<Image
+			src={harbour}
+			alt={otranto.imageAlt}
+			widths={[768, 1280, 1920]}
+			sizes="100vw"
+			quality={80}
+			class="cover-photo"
+			loading="eager"
+			fetchpriority="high"
+		/>
+		<div class="cover-copy hero-enter">
+			<h1 id="hero-title">
+				<span class="cover-brand">{brand}</span>
+				<span class="cover-series">{name}</span>
+			</h1>
+			<p class="date-line">{when}</p>
+			<p class="cover-place">{venue.name}, {place}</p>
+			<div class="cover-actions">
+				<a class="btn btn-filled state-layer" href={sitePath("call-for-papers")}>Call for papers</a>
+				<a class="btn btn-outlined state-layer" href={sitePath("important-dates")}>Important dates</a>
+			</div>
+		</div>
+	</section>
+
+	<div class="tessera-seam">
+		<TesseraBand />
+	</div>
+
+	<div class="home-sheet home-flow">
+		<section class="home-about" aria-labelledby="about-title">
+			<h2 id="about-title">About</h2>
+			<p class="home-lead">{lead}</p>
+			<About />
+			<p class="home-more">Find out more</p>
+			<div class="home-actions">
+				<a class="btn btn-outlined state-layer" href={sitePath("venue")}>About the venue</a>
+				<a class="btn btn-outlined state-layer" href={sitePath("otranto")}>About Otranto</a>
+			</div>
+		</section>
+
+		<section class="home-dates" aria-labelledby="dates-title">
+			<h2 id="dates-title">Important dates</h2>
+			<DeadlineList />
+			<a class="btn btn-text state-layer mt-6" href={sitePath("important-dates")}>All important dates</a>
+		</section>
+
+		<section class="home-support" aria-label="Support">
+			{
+				sponsors.map((group) => (
+					<div>
+						<h2>{group.label}</h2>
+						<ul class="m-0 list-none p-0">
+							{group.members.map((member) => (
+								<li>
+									<p>{member.name}</p>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</section>
+	</div>
+
+	<p slot="credit" class="photo-credit">
+		Cover photo by <a href={otranto.creditSourceUrl}>{otranto.creditName}</a>, Wikimedia Commons,{" "}
+		<a href={otranto.creditLicenseUrl} rel="license">{otranto.creditLicense}</a>.
+	</p>
+</BaseLayout>

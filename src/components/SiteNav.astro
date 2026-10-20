@@ -1,0 +1,141 @@
+---
+import { conference, isNavGroup, navigationLinks } from "../data";
+import { isCurrentPath, sitePath } from "../lib/paths";
+import Icon from "./Icon.astro";
+
+interface Props {
+	variant: "bar" | "drawer" | "footer";
+}
+
+const { variant } = Astro.props;
+const pathname = Astro.url.pathname;
+
+function barClass(current: boolean): string {
+	return [
+		"state-layer inline-flex min-h-12 items-center rounded-full px-3 text-sm",
+		current ? "bg-secondary-container font-medium text-on-secondary-container" : "",
+	].join(" ");
+}
+
+function drawerClass(current: boolean, nested = false): string {
+	return [
+		"state-layer flex min-h-12 w-full items-center rounded-full text-sm",
+		nested ? "ps-7 pe-4" : "px-4",
+		current ? "bg-secondary-container font-medium text-on-secondary-container" : "text-on-surface",
+	].join(" ");
+}
+
+function footerClass(current: boolean): string {
+	return [
+		"state-layer inline-flex min-h-11 items-center rounded-full px-2 text-primary underline decoration-outline underline-offset-4",
+		current ? "font-medium decoration-primary" : "",
+	].join(" ");
+}
+---
+
+{
+	variant === "bar" && (
+		<ul class="flex items-center justify-end gap-0.5">
+			{conference.navigation.map((entry) => {
+				if (!isNavGroup(entry)) {
+					const current = isCurrentPath(pathname, entry.href);
+					return (
+						<li>
+							<a href={sitePath(entry.href)} aria-current={current ? "page" : undefined} class={barClass(current)}>
+								{entry.label}
+							</a>
+						</li>
+					);
+				}
+
+				const current = entry.items.some((item) => isCurrentPath(pathname, item.href));
+				return (
+					<li>
+						<details class="nav-menu" data-nav-menu>
+							<summary class:list={["nav-summary state-layer", current && "is-current"]}>
+								{entry.label}
+								<Icon name="expand" class="nav-chevron size-5" />
+							</summary>
+							<div class="nav-menu-panel">
+								<ul>
+									{entry.items.map((item) => {
+										const itemCurrent = isCurrentPath(pathname, item.href);
+										return (
+											<li>
+												<a
+													href={sitePath(item.href)}
+													aria-current={itemCurrent ? "page" : undefined}
+													class="state-layer"
+												>
+													{item.label}
+												</a>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
+						</details>
+					</li>
+				);
+			})}
+		</ul>
+	)
+}
+
+{
+	variant === "drawer" && (
+		<ul class="flex flex-col gap-1 px-3 pb-6">
+			{conference.navigation.map((entry) => {
+				if (!isNavGroup(entry)) {
+					const current = isCurrentPath(pathname, entry.href);
+					return (
+						<li class="w-full">
+							<a href={sitePath(entry.href)} aria-current={current ? "page" : undefined} class={drawerClass(current)}>
+								{entry.label}
+							</a>
+						</li>
+					);
+				}
+
+				return (
+					<li class="w-full">
+						<p class="nav-group-label">{entry.label}</p>
+						<ul class="flex flex-col gap-1">
+							{entry.items.map((item) => {
+								const current = isCurrentPath(pathname, item.href);
+								return (
+									<li>
+										<a
+											href={sitePath(item.href)}
+											aria-current={current ? "page" : undefined}
+											class={drawerClass(current, true)}
+										>
+											{item.label}
+										</a>
+									</li>
+								);
+							})}
+						</ul>
+					</li>
+				);
+			})}
+		</ul>
+	)
+}
+
+{
+	variant === "footer" && (
+		<ul class="flex flex-wrap gap-x-4 gap-y-1">
+			{navigationLinks().map((item) => {
+				const current = isCurrentPath(pathname, item.href);
+				return (
+					<li>
+						<a href={sitePath(item.href)} aria-current={current ? "page" : undefined} class={footerClass(current)}>
+							{item.label}
+						</a>
+					</li>
+				);
+			})}
+		</ul>
+	)
+}

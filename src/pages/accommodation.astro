@@ -1,0 +1,45 @@
+---
+import PageBanner from "../components/PageBanner.astro";
+import { accommodation, navigationItem, venue } from "../data";
+import { formatPlace } from "../lib/format";
+import { sitePath } from "../lib/paths";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const page = navigationItem("accommodation");
+const place = formatPlace(venue.address);
+---
+
+<BaseLayout title={page.label} description="Hotel rates for the symposium." bleed>
+	<PageBanner title={page.label} />
+	<div class="page-column page-body page-flow">
+		<p>{accommodation.summary}</p>
+		{
+			accommodation.rates.length > 0 && (
+				<ul class="person-list">
+					{accommodation.rates.map((rate) => (
+						<li>
+							<p class="person-name">{rate.name}</p>
+							<p>{rate.detail}</p>
+							{rate.url && (
+								<p>
+									<a href={rate.url} target="_blank" rel="noopener noreferrer">Hotel site</a>
+								</p>
+							)}
+						</li>
+					))}
+				</ul>
+			)
+		}
+		<section aria-labelledby="hotel-title">
+			<h2 id="hotel-title">Symposium hotel</h2>
+			<p class="person-name">{venue.name}</p>
+			<p class="person-meta">
+				{venue.address.street}, {venue.address.postalCode} {venue.address.city}
+			</p>
+			<p class="person-meta">{place}</p>
+		</section>
+		<p class="page-links">
+			<a class="btn btn-text state-layer" href={sitePath("venue")}>About the venue</a>
+		</p>
+	</div>
+</BaseLayout>

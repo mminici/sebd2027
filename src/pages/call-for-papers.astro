@@ -1,0 +1,53 @@
+---
+import PageBanner from "../components/PageBanner.astro";
+import { call, conference, navigationItem, venue } from "../data";
+import { Content as Intro } from "../content/call.md";
+import { formatPlace, formatRange } from "../lib/format";
+import { sitePath } from "../lib/paths";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const page = navigationItem("call-for-papers");
+const when = formatRange(conference.dates.start, conference.dates.end);
+const place = `${venue.name}, ${formatPlace(venue.address)}`;
+---
+
+<BaseLayout title={page.label} description="Topics and submission instructions for the symposium." bleed>
+	<PageBanner title={page.label} kicker={when} note={place} />
+	<div class="page-column page-body page-flow">
+		<Intro />
+		<section aria-labelledby="topics-title">
+			<h2 id="topics-title">Topics</h2>
+			<ul class="topic-list">
+				{call.topics.map((topic) => <li>{topic}</li>)}
+			</ul>
+		</section>
+		<section aria-labelledby="submissions-title">
+			<h2 id="submissions-title">Submissions</h2>
+			{
+				call.tracks.map((track) => (
+					<div class="fact">
+						<h3>{track.name}</h3>
+						<p>{track.text}</p>
+					</div>
+				))
+			}
+			<p class="page-action">{call.submissionNote}</p>
+			{
+				call.submissionUrl && (
+					<p class="page-action">
+						<a class="btn btn-filled state-layer" href={call.submissionUrl} target="_blank" rel="noopener noreferrer">
+							Submit a paper
+						</a>
+					</p>
+				)
+			}
+		</section>
+		<section aria-labelledby="proceedings-title">
+			<h2 id="proceedings-title">Proceedings</h2>
+			<p>{call.proceedings}</p>
+		</section>
+		<p class="page-links">
+			<a class="btn btn-text state-layer" href={sitePath("important-dates")}>Important dates</a>
+		</p>
+	</div>
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+interface Props {
+	name: "menu" | "close" | "expand";
+	class?: string;
+}
+
+const { name, class: className = "size-6" } = Astro.props;
+
+const paths = {
+	menu: "M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z",
+	close: "m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z",
+	expand: "M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z",
+};
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 -960 960 960"
+	class={className}
+	fill="currentColor"
+	aria-hidden="true"
+	focusable="false"
+>
+	<path d={paths[name]}></path>
+</svg>

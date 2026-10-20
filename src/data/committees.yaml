@@ -1,0 +1,22 @@
+# Nomi segnaposto: non inventare persone. Sostituire "To be announced" con i nomi veri.
+
+- id: general-chairs
+  name: General chairs
+  members:
+    - name: To be announced
+      affiliation: Affiliation to be announced
+- id: program-chairs
+  name: Program chairs
+  members:
+    - name: To be announced
+      affiliation: Affiliation to be announced
+- id: organizing-committee
+  name: Organizing committee
+  members:
+    - name: To be announced
+      affiliation: Affiliation to be announced
+- id: program-committee
+  name: Program committee
+  members:
+    - name: To be announced
+      affiliation: Affiliation to be announced

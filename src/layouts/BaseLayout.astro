@@ -1,0 +1,52 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import NavDrawer from "../components/NavDrawer.astro";
+import TopAppBar from "../components/TopAppBar.astro";
+import { conference } from "../data";
+import { brandLabel, conferenceName } from "../lib/format";
+
+interface Props {
+	title: string;
+	description?: string;
+	home?: boolean;
+	bleed?: boolean;
+}
+
+const { title, description = conference.summary, home = false, bleed = false } = Astro.props;
+const brand = brandLabel(conference.shortName, conference.dates.start);
+const name = conferenceName(conference.edition, conference.series);
+const documentTitle = home ? `${name} · ${brand}` : `${title} · ${brand}`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{documentTitle}</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#F6FAFB" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#101C22" media="(prefers-color-scheme: dark)" />
+		<link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+	</head>
+	<body>
+		<a class="skip-link state-layer" href="#content">Skip to content</a>
+		<TopAppBar overlay={home} />
+		<NavDrawer />
+		<main
+			id="content"
+			tabindex="-1"
+			class:list={[
+				"w-full flex-1",
+				home ? "home-main" : bleed ? "w-full" : "mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10",
+			]}
+		>
+			<slot />
+		</main>
+		<Footer nav={!home}>
+			<slot name="credit" />
+		</Footer>
+	</body>
+</html>

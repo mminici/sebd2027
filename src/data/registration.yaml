@@ -1,0 +1,14 @@
+# Le quote si aggiornano qui. La data di chiusura sta in dates.yaml, id registration.
+
+summary: Fees, what they include, and the registration form will be published here.
+categories:
+  - id: full
+    name: Full registration
+    fee: To be announced
+  - id: student
+    name: Student registration
+    fee: To be announced
+  - id: accompanying
+    name: Accompanying person
+    fee: To be announced
+formUrl: ""

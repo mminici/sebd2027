@@ -1,0 +1,36 @@
+# Il numero di edizione è l'unica fonte per l'ordinale nel titolo.
+# Le date del simposio stanno solo qui; le scadenze stanno in dates.yaml.
+
+series: Symposium on Advanced Database Systems
+shortName: SEBD
+edition: 35
+dates:
+  start: "2027-06-21"
+  end: "2027-06-25"
+summary: Dates, calls, and travel notes for the SEBD symposium in Otranto.
+# In testata solo le voci di primo livello. I gruppi si aprono a tendina.
+navigation:
+  - label: Home
+    href: ""
+  - label: Calls
+    items:
+      - label: Call for papers
+        href: call-for-papers
+      - label: Important dates
+        href: important-dates
+  - label: Keynotes
+    href: keynotes
+  - label: Program
+    href: program
+  - label: Committees
+    href: committees
+  - label: Attending
+    items:
+      - label: Registration
+        href: registration
+      - label: Accommodation
+        href: accommodation
+      - label: Venue
+        href: venue
+      - label: Otranto
+        href: otranto

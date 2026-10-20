@@ -1,0 +1,102 @@
+---
+import { conference } from "../data";
+import { brandLabel } from "../lib/format";
+import { sitePath } from "../lib/paths";
+import Icon from "./Icon.astro";
+import SiteNav from "./SiteNav.astro";
+
+interface Props {
+	overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+const brand = brandLabel(conference.shortName, conference.dates.start);
+---
+
+<header class="top-app-bar" data-app-bar data-overlay={overlay ? "" : undefined}>
+	<div class="mx-auto flex min-h-16 w-full max-w-6xl items-center gap-1 px-2 sm:px-4">
+		<button
+			type="button"
+			class="icon-button state-layer lg:hidden"
+			data-menu-button
+			aria-haspopup="dialog"
+			aria-expanded="false"
+			aria-controls="nav-drawer"
+			aria-label="Open menu"
+		>
+			<Icon name="menu" />
+		</button>
+		<a href={sitePath("")} class="state-layer inline-flex min-h-12 items-center rounded-full px-3 font-medium">
+			{brand}
+		</a>
+		<nav aria-label="Primary" class="ms-auto hidden min-w-0 lg:block">
+			<SiteNav variant="bar" />
+		</nav>
+	</div>
+</header>
+<script is:inline>
+	const bar = document.querySelector("[data-app-bar][data-overlay]");
+	if (bar && window.scrollY <= 12) bar.classList.add("is-top");
+</script>
+
+<script>
+	const menus = document.querySelectorAll<HTMLDetailsElement>("details[data-nav-menu]");
+	const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+	const closeOthers = (current: HTMLDetailsElement) => {
+		menus.forEach((menu) => {
+			if (menu !== current) menu.open = false;
+		});
+	};
+
+	menus.forEach((menu) => {
+		const summary = menu.querySelector("summary");
+
+		summary?.addEventListener("click", (event) => {
+			if (finePointer.matches && event.detail !== 0) event.preventDefault();
+		});
+
+		menu.addEventListener("toggle", () => {
+			summary?.setAttribute("aria-expanded", menu.open ? "true" : "false");
+			if (menu.open) closeOthers(menu);
+		});
+
+		menu.addEventListener("keydown", (event) => {
+			if (event.key === "Escape" && menu.open) {
+				menu.open = false;
+				summary?.focus();
+			}
+		});
+
+		menu.addEventListener("focusout", (event) => {
+			const next = event.relatedTarget;
+			if (next instanceof Node && menu.contains(next)) return;
+			menu.open = false;
+		});
+
+		if (finePointer.matches) {
+			menu.addEventListener("mouseenter", () => {
+				menu.open = true;
+			});
+			menu.addEventListener("mouseleave", () => {
+				if (menu.contains(document.activeElement)) return;
+				menu.open = false;
+			});
+		}
+	});
+
+	document.addEventListener("click", (event) => {
+		const target = event.target;
+		if (!(target instanceof Node)) return;
+		menus.forEach((menu) => {
+			if (menu.open && !menu.contains(target)) menu.open = false;
+		});
+	});
+
+	const bar = document.querySelector<HTMLElement>("[data-app-bar][data-overlay]");
+	if (bar) {
+		const sync = () => bar.classList.toggle("is-top", window.scrollY <= 12);
+		sync();
+		window.addEventListener("scroll", sync, { passive: true });
+	}
+</script>

@@ -1,0 +1,27 @@
+# Temi e tipi di contributo. Limiti di pagina, template e URL di submission
+# si aggiornano qui. Le scadenze stanno solo in dates.yaml.
+
+topics:
+  - Query processing and optimization
+  - Transaction processing and recovery
+  - Data integration and heterogeneous sources
+  - Data quality, uncertainty, and provenance
+  - Graph data and knowledge graphs
+  - Data mining and knowledge discovery
+  - Data management for machine learning
+  - Privacy, security, and access control
+  - Distributed, cloud, and scientific data
+  - Natural-language and interactive access to data
+tracks:
+  - id: regular
+    name: Regular papers
+    text: Original research on database systems and their applications. A submission should not be under review for another publication.
+  - id: discussion
+    name: Discussion papers
+    text: Experience reports, early ideas, and extended abstracts of work published recently.
+  - id: doctoral
+    name: Doctoral consortium
+    text: A paper by a doctoral student on their own research, written for discussion at the symposium.
+submissionNote: The submission site, the template, and the page limits will be published here.
+submissionUrl: ""
+proceedings: The venue of the proceedings will be published here.

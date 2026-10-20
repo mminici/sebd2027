@@ -1,0 +1,14 @@
+---
+import Tessera from "./Tessera.astro";
+
+const tones = ["pietra", "adriatico", "alimini", "pietra", "adriatico", "pietra", "alimini"] as const;
+
+function toneAt(index: number) {
+	if (index % 17 === 8) return "melograno" as const;
+	return tones[index % tones.length];
+}
+---
+
+<div class="tessera-band" aria-hidden="true">
+	{Array.from({ length: 72 }, (_, index) => <Tessera tone={toneAt(index)} />)}
+</div>

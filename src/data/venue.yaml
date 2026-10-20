@@ -1,0 +1,21 @@
+# L'indirizzo è quello pubblicato dall'hotel. I testi di viaggio stanno solo qui.
+
+name: Basiliani Hotel SPA
+description: Basiliani Hotel SPA stands on Via Renis, on the shore just south of the historic center. The symposium meets in the hotel.
+address:
+  street: Via Renis, 11
+  postalCode: "73028"
+  city: Otranto
+  province: Lecce
+  region: Puglia
+  country: Italy
+arrival:
+  - id: air
+    label: By air
+    text: Brindisi Airport is the closest airport. The drive to Otranto takes about an hour. Bari Airport is farther north. Neither airport has a direct public link to the hotel. The usual public route goes through Lecce, and then on to Otranto.
+  - id: train
+    label: By train
+    text: Long-distance trains stop at Lecce. Ferrovie del Sud Est runs from Lecce to Otranto, often with a change at Maglie. The Otranto station is by the historic center. The hotel is a short ride farther south, on Via Renis.
+  - id: car
+    label: By car
+    text: From Lecce, follow the road toward Maglie and then the turn for Otranto. The drive takes about forty minutes. The old center is mostly closed to cars. Via Renis, where the hotel stands, is on the shore south of the walls.

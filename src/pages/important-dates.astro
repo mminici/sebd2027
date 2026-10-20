@@ -1,0 +1,30 @@
+---
+import DeadlineList from "../components/DeadlineList.astro";
+import PageBanner from "../components/PageBanner.astro";
+import { conference, navigationItem, venue } from "../data";
+import { formatPlace, formatRange } from "../lib/format";
+import { sitePath } from "../lib/paths";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const page = navigationItem("important-dates");
+const when = formatRange(conference.dates.start, conference.dates.end);
+const place = `${venue.name}, ${formatPlace(venue.address)}`;
+---
+
+<BaseLayout title={page.label} description="Deadlines and the days of the symposium." bleed>
+	<PageBanner title={page.label} kicker={when} note={place} />
+	<div class="page-column page-body page-flow">
+		<section aria-labelledby="deadlines-title">
+			<h2 id="deadlines-title">Deadlines</h2>
+			<DeadlineList details />
+		</section>
+		<section aria-labelledby="symposium-title">
+			<h2 id="symposium-title">The symposium</h2>
+			<p>The meeting runs from {when}, at {place}.</p>
+		</section>
+		<p class="page-links">
+			<a class="btn btn-text state-layer" href={sitePath("call-for-papers")}>Call for papers</a>
+			<a class="btn btn-text state-layer" href={sitePath("program")}>Conference program</a>
+		</p>
+	</div>
+</BaseLayout>

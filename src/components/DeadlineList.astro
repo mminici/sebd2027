@@ -1,0 +1,40 @@
+---
+import { dates } from "../data";
+import { deadlineStatus } from "../lib/dates";
+import { formatDay } from "../lib/format";
+import Tessera from "./Tessera.astro";
+
+interface Props {
+	details?: boolean;
+}
+
+const { details = false } = Astro.props;
+
+const statusLabel = {
+	past: "Past deadline",
+	soon: "Within 14 days",
+	upcoming: "Upcoming deadline",
+} as const;
+---
+
+<ol class="deadline-list">
+	{
+		dates.map((item) => {
+			const status = deadlineStatus(item.date);
+			return (
+				<li>
+					<Tessera status={status} large />
+					<div>
+						<p class="deadline-date">{formatDay(item.date)}</p>
+						<p>
+							{item.label}
+							{status !== "soon" && <span class="sr-only">. {statusLabel[status]}</span>}
+						</p>
+						{details && <p class="deadline-detail">{item.detail}</p>}
+						{status === "soon" && <p class="text-sm text-accent">{statusLabel[status]}</p>}
+					</div>
+				</li>
+			);
+		})
+	}
+</ol>

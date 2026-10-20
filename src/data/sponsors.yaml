@@ -1,0 +1,10 @@
+- id: organizer
+  label: Organized by
+  members:
+    - id: organizer-1
+      name: To be announced
+- id: supporter
+  label: Supported by
+  members:
+    - id: supporter-1
+      name: To be announced

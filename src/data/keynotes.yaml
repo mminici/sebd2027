@@ -1,0 +1,10 @@
+- id: keynote-1
+  title: Opening keynote
+  speaker: To be announced
+  affiliation: Affiliation to be announced
+  summary: The abstract will be published here.
+- id: keynote-2
+  title: Closing keynote
+  speaker: To be announced
+  affiliation: Affiliation to be announced
+  summary: The abstract will be published here.

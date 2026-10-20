@@ -1,0 +1,29 @@
+---
+import PageBanner from "../components/PageBanner.astro";
+import { keynotes, navigationItem } from "../data";
+import { sitePath } from "../lib/paths";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const page = navigationItem("keynotes");
+---
+
+<BaseLayout title={page.label} description="Opening and closing lectures." bleed>
+	<PageBanner title={page.label} />
+	<div class="page-column page-body page-flow">
+		<div>
+			{
+				keynotes.map((talk) => (
+					<article class="keynote" aria-labelledby={`${talk.id}-title`}>
+						<h2 id={`${talk.id}-title`}>{talk.title}</h2>
+						<p class="person-name">{talk.speaker}</p>
+						<p class="person-meta">{talk.affiliation}</p>
+						<p>{talk.summary}</p>
+					</article>
+				))
+			}
+		</div>
+		<p class="page-links">
+			<a class="btn btn-text state-layer" href={sitePath("program")}>Conference program</a>
+		</p>
+	</div>
+</BaseLayout>

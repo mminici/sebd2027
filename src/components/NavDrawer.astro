@@ -1,0 +1,54 @@
+---
+import Icon from "./Icon.astro";
+import SiteNav from "./SiteNav.astro";
+---
+
+<dialog id="nav-drawer" class="nav-drawer" data-nav-drawer aria-labelledby="drawer-title">
+	<div class="flex min-h-16 items-center justify-between gap-2 px-3">
+		<p id="drawer-title" class="px-2 text-lg font-medium">Menu</p>
+		<button type="button" class="icon-button state-layer" data-drawer-close aria-label="Close menu">
+			<Icon name="close" />
+		</button>
+	</div>
+	<nav aria-label="Primary">
+		<SiteNav variant="drawer" />
+	</nav>
+</dialog>
+
+<script>
+	const menuButton = document.querySelector<HTMLButtonElement>("[data-menu-button]");
+	const drawer = document.querySelector<HTMLDialogElement>("[data-nav-drawer]");
+
+	if (menuButton && drawer) {
+		const setOpen = (open: boolean) => {
+			menuButton.setAttribute("aria-expanded", open ? "true" : "false");
+			document.documentElement.classList.toggle("drawer-open", open);
+		};
+
+		menuButton.addEventListener("click", () => {
+			if (!drawer.open) drawer.showModal();
+		});
+
+		drawer.addEventListener("toggle", () => {
+			setOpen(drawer.open);
+		});
+
+		drawer.addEventListener("click", (event) => {
+			if (event.target === drawer) drawer.close();
+		});
+
+		drawer.querySelector<HTMLButtonElement>("[data-drawer-close]")?.addEventListener("click", () => {
+			drawer.close();
+		});
+
+		window.addEventListener("pageshow", () => {
+			if (drawer.open) drawer.close();
+		});
+
+		// Same threshold as the lg: utilities (64rem).
+		const desktop = window.matchMedia("(min-width: 64rem)");
+		desktop.addEventListener("change", () => {
+			if (desktop.matches && drawer.open) drawer.close();
+		});
+	}
+</script>

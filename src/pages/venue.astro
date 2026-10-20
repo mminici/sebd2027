@@ -1,0 +1,37 @@
+---
+import { venue } from "../data";
+import { directionsUrl, formatPlace } from "../lib/format";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const place = formatPlace(venue.address);
+const directions = directionsUrl(venue.name, venue.address);
+---
+
+<BaseLayout title="Venue" description={venue.description} bleed>
+	<header class="ink-banner">
+		<div class="page-column">
+			<h1>{venue.name}</h1>
+			<p class="ink-kicker">{venue.address.street}, {venue.address.postalCode} {venue.address.city}</p>
+			<p class="ink-place">{place}</p>
+		</div>
+	</header>
+	<div class="page-column page-body">
+		<p>{venue.description}</p>
+		<p class="page-action">
+			<a class="btn btn-filled state-layer" href={directions} target="_blank" rel="noopener noreferrer">
+				Get directions
+			</a>
+		</p>
+		<section class="arrival-list" aria-labelledby="arrival-title">
+			<h2 id="arrival-title">Getting there</h2>
+			{
+				venue.arrival.map((item) => (
+					<div class="arrival">
+						<h3>{item.label}</h3>
+						<p>{item.text}</p>
+					</div>
+				))
+			}
+		</section>
+	</div>
+</BaseLayout>

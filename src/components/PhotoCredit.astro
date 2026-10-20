@@ -1,0 +1,15 @@
+---
+interface Props {
+	name: string;
+	sourceUrl: string;
+	license: string;
+	licenseUrl: string;
+}
+
+const { name, sourceUrl, license, licenseUrl } = Astro.props;
+---
+
+<p class="figure-credit">
+	Photo by <a href={sourceUrl}>{name}</a>, Wikimedia Commons,{" "}
+	<a class="whitespace-nowrap" href={licenseUrl} rel="license">{license}</a>.
+</p>

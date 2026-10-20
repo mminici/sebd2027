@@ -1,0 +1,49 @@
+---
+import { conference, venue } from "../data";
+import { brandLabel, conferenceName, formatPlace, formatRange } from "../lib/format";
+import SiteNav from "./SiteNav.astro";
+
+interface Props {
+	nav?: boolean;
+}
+
+const { nav = true } = Astro.props;
+const name = conferenceName(conference.edition, conference.series);
+const brand = brandLabel(conference.shortName, conference.dates.start);
+const place = `${venue.name}, ${formatPlace(venue.address)}`;
+---
+
+<footer
+	class:list={[
+		"border-t border-outline-variant text-on-surface",
+		nav ? "bg-surface-container" : "bg-surface",
+	]}
+>
+	<div
+		class:list={[
+			"mx-auto grid w-full max-w-6xl gap-8 px-4 py-10 sm:px-6",
+			nav && "md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]",
+		]}
+	>
+		<div class="max-w-[66ch]">
+			<p class="font-serif text-2xl">{brand}</p>
+			<p class="mt-2">{name}</p>
+			<p class="mt-4 font-serif text-lg text-primary">{formatRange(conference.dates.start, conference.dates.end)}</p>
+			<p class="mt-2 text-on-surface-variant">{place}</p>
+		</div>
+		{
+			nav && (
+				<nav aria-label="Footer">
+					<SiteNav variant="footer" />
+				</nav>
+			)
+		}
+	</div>
+	{
+		Astro.slots.has("default") && (
+			<div class="photo-credit-wrap">
+				<slot />
+			</div>
+		)
+	}
+</footer>

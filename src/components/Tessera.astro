@@ -1,0 +1,11 @@
+---
+interface Props {
+	tone?: "pietra" | "adriatico" | "alimini" | "melograno";
+	status?: "past" | "soon" | "upcoming";
+	large?: boolean;
+}
+
+const { tone, status, large = false } = Astro.props;
+---
+
+<span class:list={["tessera", large && "tessera-lg"]} data-tone={tone} data-status={status}></span>

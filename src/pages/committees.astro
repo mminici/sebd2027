@@ -1,0 +1,28 @@
+---
+import PageBanner from "../components/PageBanner.astro";
+import { committees, navigationItem } from "../data";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const page = navigationItem("committees");
+---
+
+<BaseLayout title={page.label} description="General chairs, program chairs, and the program committee." bleed>
+	<PageBanner title={page.label} />
+	<div class="page-column page-body page-flow">
+		{
+			committees.map((group) => (
+				<section aria-labelledby={`${group.id}-title`}>
+					<h2 id={`${group.id}-title`}>{group.name}</h2>
+					<ul class="person-list">
+						{group.members.map((member) => (
+							<li>
+								<p class="person-name">{member.name}</p>
+								<p class="person-meta">{member.affiliation}</p>
+							</li>
+						))}
+					</ul>
+				</section>
+			))
+		}
+	</div>
+</BaseLayout>
