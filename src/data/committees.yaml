@@ -1,22 +1,58 @@
-# Nomi segnaposto: non inventare persone. Sostituire "To be announced" con i nomi veri.
-
 - id: general-chairs
   name: General chairs
   members:
-    - name: To be announced
-      affiliation: Affiliation to be announced
+    - name: Michelangelo Ceci
+      affiliation: University of Bari Aldo Moro
+    - name: Giuseppe Manco
+      affiliation: ICAR-CNR
 - id: program-chairs
   name: Program chairs
   members:
-    - name: To be announced
-      affiliation: Affiliation to be announced
-- id: organizing-committee
-  name: Organizing committee
+    - name: Antonella Longo
+      affiliation: University of Salento
+    - name: Luigi Pontieri
+      affiliation: ICAR-CNR
+- id: organization-chairs
+  name: Organization chairs
+  members:
+    - name: Angelica Liguori
+      affiliation: ICAR-CNR
+- id: doctoral-consortium-chairs
+  name: Doctoral consortium chairs
   members:
     - name: To be announced
       affiliation: Affiliation to be announced
-- id: program-committee
-  name: Program committee
+- id: publicity-web-chairs
+  name: Publicity and web chairs
+  members:
+    - name: Marco Minici
+      affiliation: ICAR-CNR
+    - name: Antonio Pellicani
+      affiliation: University of Bari Aldo Moro
+- id: proceedings-chairs
+  name: Proceedings chairs
+  members:
+    - name: Francesco Scala
+      affiliation: ICAR-CNR
+- id: local-organizing-committee
+  name: Local organizing committee
   members:
     - name: To be announced
       affiliation: Affiliation to be announced
+- id: taste-of-time-award-chair
+  name: Taste of Time Award Chair
+  members:
+    - name: To be announced
+      affiliation: Affiliation to be announced
+- id: sponsorship-chairs
+  name: Sponsorship chairs
+  members:
+    - name: To be announced
+      affiliation: Affiliation to be announced
+- id: panel-chairs
+  name: Panel chairs
+  members:
+    - name: To be announced
+      affiliation: Affiliation to be announced
+
+

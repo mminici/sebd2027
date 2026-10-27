@@ -2,27 +2,20 @@
 # Lo stato (passata, futura, entro 14 giorni) si calcola dalla data: non si scrive qui.
 # detail è la frase sulla pagina Important dates. La home mostra solo label e data.
 
-- id: call-published
-  label: Call for papers published
-  date: "2026-09-30"
-  detail: Topics and submission instructions are on the call for papers page.
 - id: abstracts
   label: Abstract submission
-  date: "2026-11-02"
+  date: "2027-02-22"
   detail: The abstract is due on this day.
 - id: papers
   label: Paper submission
-  date: "2027-01-25"
+  date: "2027-03-01"
   detail: The full paper is due on this day.
 - id: notification
   label: Author notification
-  date: "2027-03-22"
+  date: "2027-04-09"
   detail: Authors are told whether the paper is accepted.
 - id: camera-ready
-  label: Camera-ready papers
-  date: "2027-04-19"
-  detail: Final versions of accepted papers are due.
-- id: registration
-  label: Registration closes
-  date: "2027-05-31"
-  detail: Last day to register for the symposium.
+  label: Camera-ready papers and registration
+  date: "2027-04-20"
+  detail: Final versions of accepted papers and registration are due.
+
